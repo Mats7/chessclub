@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+{% block body%}
+    <div class="container bg-dark" id="main-div">
+        <div class="row bg-dark">
+            <div class="p-5 bg-dark text-white text-center">
+                <h1 class="heading-main">Chess Club Brno</h1>
+                <p></p>
+            </div>
+        </div>
+        <nav class="navbar navbar-expand-sm bg-dark navbar-dark nav-custom">
+            <div class="container-fluid nav-custom">
+                <ul class="nav">
+                    {% if app.user %}
+                    <li class="nav-item">
+                        <a style="cursor: pointer;" id="profile-info-show" class="nav-link link-info" href="{{ path('app_profile_view') }}">Profile Info</a>
+                    </li>
+                    {% endif %}
+                    {% if app.user == false%}
+                    <li class="nav-item">
+                        <a style="cursor: pointer;" id="profile-login" class="nav-link link-login" href="{{ path('app_login') }}">Login</a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a style="cursor: pointer;" id="profiles-show" class="nav-link" href="{{ path('app_profiles') }}">Users</a>
+                    </li>
+                    {% if app.user %}
+                    <li class="nav-item">
+                        <a style="cursor: pointer;" class="nav-link" href="{{ path('app_mygames') }}">My Games</a>
+                    </li>
+                    <li class="nav-item">
+                        <a style="cursor: pointer;" class="nav-link" href="{{ path('app_game_add') }}">Add Game</a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a style="cursor: pointer;" class="nav-link" href="{{ path('app_leaderboard') }}">Leaderboard</a>
+                    </li>
+                </ul>
+
+                {% if app.user %}
+                <ul class="nav ml-auto">
+                    <li class="nav-item ml-auto">
+                        <a class="nav-link link-logout" href="{{ path('app_logout') }}">Logout</a>
+                    </li>
+                </ul>
+                {% endif %}
+            </div>
+        </nav>
+
+        <div class="container mt-5 bg-dark">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,99 @@
+html {
+    width: 100vw;
+}
+
+body{
+    background-image: url('../images/bg2.png') !important;
+    background-size: cover;
+    background-repeat: repeat-y;
+    background-position: top;
+    overflow-x: hidden;
+}
+
+#main-div{
+    min-height: 100vh;
+}
+
+.heading-main{
+    color: #ffd5c1 !important;
+}
+
+.bg-dark{
+    background-color: #342c3c !important;
+}
+
+.col-6{
+    border-radius: 20px !important;
+    margin-top: 15px !important;
+    padding: 15px !important;
+}
+
+.btn-primary{
+    color: black !important;
+    background-color: #f67280 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    padding: 8px 12px !important;
+}
+
+.btn-primary:hover{
+    color: black !important;
+    background-color: #f8b595 !important;
+}
+
+.btn-secondary{
+    color: black !important;
+    background-color: #c06c84 !important;
+    padding: 0 !important;
+    border: none !important;
+    padding: 8px 12px !important;
+    
+}
+
+.btn-secondary:hover{
+    color: black !important;
+    background-color: #f8b595 !important;
+}
+
+.form-control:focus {
+    outline: none !important;
+    box-shadow: 0 0 10px #c06c84 !important;
+}
+
+.nav-custom{
+    background-color: #342c3c;
+}
+
+.nav-item:hover{
+    background-color: #241f2a;
+    border-radius: 10px;
+}
+
+.nav-link{
+    color: #f8b595 !important;
+}
+
+.nav-link:hover{
+    color: #fad7b7 !important;
+    /*cursor: pointer !important;*/
+}
+
+.link-login{
+    color: #f67280 !important;
+}
+
+.link-logout{
+    color: #f48792cc !important;
+}
+
+.userbox{
+    border-style: solid;
+    border-radius: 10px;
+    border-color: #6c5b7c !important;
+    padding: 10px;
+}
+
+input{
+    background-color: #ffdece !important;
+}
+

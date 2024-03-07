@@ -1,0 +1,32 @@
+{% extends 'homepage/home.html.twig' %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-6 bg-dark text-white">
+            {% if app.user %}
+                <div class="mb-5">
+                    <h1 class="h3 mb-2 font-weight-normal">My Games</h1>
+                    {% for a in gamearray %}
+                        <div class="mt-5 userbox">
+                            <label class="mt-2" for="username">Winner:</label>
+                            <h4 class="mt-2" for="username">{{a.Winner}}</h3>
+                            
+                            <label class="mt-2" for="username">Loser:</label>
+                            <h4 class="mt-2" for="username">{{a.Loser}}</h3>
+                            
+                            <label class="mt-2" for="text">Winner's color:</label>
+                            <h4 class="mt-2" for="text">{{a.WinnerColor}}</h3>
+                            
+                            <label class="mt-2" for="text">Loser's color:</label>
+                            <h4 class="mt-2" for="text">{{a.LoserColor}}</h3>
+                            
+                            <label class="mt-2" for="number">Winner's move count:</label>
+                            <h4 class="mt-2" for="number">{{a.MoveCount}}</h3>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+        
+{% endblock %}
