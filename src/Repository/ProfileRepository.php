@@ -39,7 +39,7 @@ class ProfileRepository extends ServiceEntityRepository
     public function findOneBySomeField($value): ?Profile
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.Nick = :val')
+            ->andWhere('p.nick = :val')
             ->setParameter('val', $value)
             ->getQuery()
             ->getOneOrNullResult()

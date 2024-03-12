@@ -8,9 +8,13 @@
                 {% for a in profiles %}
                     <div class="mt-5 userbox">
                         <label class="mt-2" for="username">Nickname:</label>
-                        <h4 class="mt-2" for="username">{{a.Nick}}</h3>
-                        <label class="mt-2" for="email">Email:</label>
-                        <h4 class="mt-2" for="email">{{a.Email}}</h3>
+                        <h4 class="mt-2" for="username">{{a.nick}}</h3>
+
+                        {% if app.user %}
+                            <label class="mt-2" for="email">Email:</label>
+                            <h4 class="mt-2" for="email">{{a.email}}</h3>
+                        {% endif %}
+                        
                     </div>
                 {% endfor %}
             </div>

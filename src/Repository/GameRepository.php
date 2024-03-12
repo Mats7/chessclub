@@ -49,7 +49,7 @@ class GameRepository extends ServiceEntityRepository
     public function findOneBySomeField($value): ?Game
     {
         return $this->createQueryBuilder('g')
-            ->andWhere('g.Winner = :val' or 'g.Loser = :val')
+            ->andWhere('g.winner = :val' or 'g.loser = :val')
             ->setParameter('val', $value)
             ->getQuery()
             ->getOneOrNullResult()

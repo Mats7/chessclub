@@ -21,37 +21,37 @@ class Profile implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 255, unique: true)]
-    private ?string $Nick = null;
+    private ?string $nick = null;
 
     #[ORM\Column(length: 255, nullable: true, unique: true)]
-    private ?string $Phone = null;
+    private ?string $phone = null;
 
     #[ORM\Column(length: 255, unique: true)]
-    private ?string $Email = null;
+    private ?string $email = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $Password = null;
+    private ?string $password = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $DateJoined = null;
+    private ?\DateTimeInterface $dateJoined = null;
 
     #[ORM\Column(nullable: true)]
-    private ?int $Wins = null;
+    private ?int $wins = null;
 
     #[ORM\Column(nullable: true)]
-    private ?int $Defeats = null;
+    private ?int $defeats = null;
 
     #[ORM\Column(nullable: true)]
-    private ?float $WhiteWinrate = null;
+    private ?float $whiteWinrate = null;
 
     #[ORM\Column(nullable: true)]
-    private ?float $BlackWinrate = null;
+    private ?float $blackWinrate = null;
 
     #[ORM\Column(nullable: true)]
-    private ?float $WhiteGames = null;
+    private ?float $whiteGames = null;
 
     #[ORM\Column(nullable: true)]
-    private ?float $BlackGames = null;
+    private ?float $blackGames = null;
 
     public function getRoles(): array
     {
@@ -60,12 +60,12 @@ class Profile implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getPassword(): string
     {
-        return $this->Password;
+        return $this->password;
     }
 
-    public function setPassword(string $Password): static
+    public function setPassword(string $password): static
     {
-        $this->Password = $Password;
+        $this->password = $password;
 
         return $this;
     }
@@ -86,131 +86,126 @@ class Profile implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getUserIdentifier(): string
     {
-        return $this->Nick;
+        return $this->nick;
     }
 
     public function getNick(): ?string
     {
-        return $this->Nick;
+        return $this->nick;
     }
 
-    public function setNick(string $Nick): static
+    public function setNick(string $nick): static
     {
-        $this->Nick = strtolower($Nick);
+        $this->nick = strtolower($nick);
 
         return $this;
     }
 
     public function getPhone(): ?string
     {
-        return $this->Phone;
+        return $this->phone;
     }
 
-    public function setPhone(?string $Phone): static
+    public function setPhone(?string $phone): static
     {
-        $this->Phone = $Phone;
+        $this->phone = $phone;
 
         return $this;
     }
 
     public function getEmail(): ?string
     {
-        return $this->Email;
+        return $this->email;
     }
 
-    public function setEmail(string $Email): static
+    public function setEmail(string $email): static
     {
-        $this->Email = strtolower($Email);
+        $this->email = strtolower($email);
 
         return $this;
     }
 
-    public function getDateJoined(): ?\DateTimeInterface
+    public function getdateJoined(): ?\DateTimeInterface
     {
-        return $this->DateJoined;
+        return $this->dateJoined;
     }
 
-    public function setDateJoined(\DateTimeInterface $DateJoined): static
+    public function setdateJoined(\DateTimeInterface $dateJoined): static
     {
-        $this->DateJoined = $DateJoined;
+        $this->dateJoined = $dateJoined;
 
         return $this;
     }
 
     public function getWins(): ?int
     {
-        return $this->Wins;
+        return $this->wins;
     }
 
-    public function setWins(?int $Wins): static
+    public function setWins(?int $wins): static
     {
-        $this->Wins = $Wins;
+        $this->wins = $wins;
 
         return $this;
     }
 
     public function getDefeats(): ?int
     {
-        return $this->Defeats;
+        return $this->defeats;
     }
 
-    public function setDefeats(?int $Defeats): static
+    public function setDefeats(?int $defeats): static
     {
-        $this->Defeats = $Defeats;
+        $this->defeats = $defeats;
 
         return $this;
     }
 
     public function getWhiteWinrate(): ?float
     {
-        return $this->WhiteWinrate;
+        return $this->whiteWinrate;
     }
 
-    public function setWhiteWinrate(?float $WhiteWinrate): static
+    public function setWhiteWinrate(?float $whiteWinrate): static
     {
-        $this->WhiteWinrate = $WhiteWinrate;
+        $this->whiteWinrate = $whiteWinrate;
 
         return $this;
     }
 
     public function getBlackWinrate(): ?float
     {
-        return $this->BlackWinrate;
+        return $this->blackWinrate;
     }
 
-    public function setBlackWinrate(?float $BlackWinrate): static
+    public function setBlackWinrate(?float $blackWinrate): static
     {
-        $this->BlackWinrate = $BlackWinrate;
+        $this->blackWinrate = $blackWinrate;
 
         return $this;
     }
 
     public function getWhiteGames(): ?float
     {
-        return $this->WhiteGames;
+        return $this->whiteGames;
     }
 
-    public function setWhiteGames(?float $WhiteGames): static
+    public function setWhiteGames(?float $whiteGames): static
     {
-        $this->WhiteGames = $WhiteGames;
+        $this->whiteGames = $whiteGames;
 
         return $this;
     }
 
     public function getBlackGames(): ?float
     {
-        return $this->BlackGames;
+        return $this->blackGames;
     }
 
-    public function setBlackGames(?float $BlackGames): static
+    public function setBlackGames(?float $blackGames): static
     {
-        $this->BlackGames = $BlackGames;
+        $this->blackGames = $blackGames;
 
         return $this;
     }
-
-    /*public static function loadValidatorMetadata(ClassMetadata $metadata): void
-    {
-        $metadata->addPropertyConstraint('email', new Type(\EmailType::class));
-    }*/
 }

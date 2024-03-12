@@ -16,22 +16,22 @@ class Game
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Winner = null;
+    private ?string $winner = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Loser = null;
+    private ?string $loser = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $WinnerColor = null;
+    private ?string $winnerColor = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $LoserColor = null;
+    private ?string $loserColor = null;
 
     #[ORM\Column]
-    private ?int $MoveCount = null;
+    private ?int $moveCount = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $DateTime = null;
+    private ?\DateTimeInterface $dateTime = null;
 
     public function getId(): ?int
     {
@@ -40,72 +40,72 @@ class Game
 
     public function getWinner(): ?string
     {
-        return $this->Winner;
+        return $this->winner;
     }
 
-    public function setWinner(string $Winner): static
+    public function setWinner(string $winner): static
     {
-        $this->Winner = $Winner;
+        $this->winner = $winner;
 
         return $this;
     }
 
     public function getLoser(): ?string
     {
-        return $this->Loser;
+        return $this->loser;
     }
 
-    public function setLoser(string $Loser): static
+    public function setLoser(string $loser): static
     {
-        $this->Loser = $Loser;
+        $this->loser = $loser;
 
         return $this;
     }
 
     public function getWinnerColor(): ?string
     {
-        return $this->WinnerColor;
+        return $this->winnerColor;
     }
 
-    public function setWinnerColor(string $WinnerColor): static
+    public function setWinnerColor(string $winnerColor): static
     {
-        $this->WinnerColor = $WinnerColor;
+        $this->winnerColor = $winnerColor;
 
         return $this;
     }
 
     public function getLoserColor(): ?string
     {
-        return $this->LoserColor;
+        return $this->loserColor;
     }
 
-    public function setLoserColor(string $LoserColor): static
+    public function setLoserColor(string $loserColor): static
     {
-        $this->LoserColor = $LoserColor;
+        $this->loserColor = $loserColor;
 
         return $this;
     }
 
     public function getMoveCount(): ?int
     {
-        return $this->MoveCount;
+        return $this->moveCount;
     }
 
-    public function setMoveCount(int $MoveCount): static
+    public function setMoveCount(int $moveCount): static
     {
-        $this->MoveCount = $MoveCount;
+        $this->moveCount = $moveCount;
 
         return $this;
     }
 
     public function getDateTime(): ?\DateTimeInterface
     {
-        return $this->DateTime;
+        return $this->dateTime;
     }
 
-    public function setDateTime(\DateTimeInterface $DateTime): static
+    public function setDateTime(\DateTimeInterface $dateTime): static
     {
-        $this->DateTime = $DateTime;
+        $this->dateTime = $dateTime;
 
         return $this;
     }

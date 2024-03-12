@@ -2,6 +2,8 @@
 
 namespace App\DataFixtures;
 
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
+
 use Faker\Factory;
 use Faker\Generator;
 
@@ -12,42 +14,24 @@ use Doctrine\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ProfileRepository;
 
-class AppFixtures extends Fixture
+class GameFixtures extends Fixture implements FixtureGroupInterface
 {
-    public function load(ObjectManager $manager, ): void
+    /* 
+    * Add random games
+    * winners and losers are picked from existing profiles
+    */
+    public function load(ObjectManager $manager): void
     {
         $faker = Factory::create();
-
-        /* 
-        * Add random profiles (same password)
-        */
-        /*
-        for ($i = 0; $i < 50; $i++) 
-        {
-            $profile = new Profile();
-            $profile->setNick($faker->firstName());
-            $profile->setEmail($faker->email());
-            $profile->setPhone($faker->phoneNumber());
-            $profile->setDateJoined(date_create($time = "now"));
-            $profile->setPassword('0000');
-
-            $manager->persist($profile);
-            $manager->flush();
-        }*/
-
-        /* 
-        * Add random games
-        * winners and losers are picked from existing profiles
-        */
         
         $arr = $manager->createQueryBuilder('profile')
-        ->select('p.Nick')
+        ->select('p.nick')
         ->from('App\Entity\Profile', 'p')
-        ->where('p.Nick is not NULL')
+        ->where('p.nick is not NULL')
         ->getQuery()
         ->getArrayResult();
 
-        $nickArray = array_map(function($a){ return $a['Nick']; }, $arr);
+        $nickArray = array_map(function($a){ return $a['nick']; }, $arr);
 
         for ($i = 0; $i < 100; $i++) 
         {
@@ -93,5 +77,10 @@ class AppFixtures extends Fixture
             $manager->flush();
         }
         
+    }
+
+    public static function getGroups(): array
+    {
+        return ['userGroup'];
     }
 }

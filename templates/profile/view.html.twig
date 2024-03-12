@@ -23,15 +23,15 @@
                     <input id="inputDefeats" type="number" value="{{ defeats }}" class="form-control" disabled>
 
                     <label class="mt-3 mb-2" for="number">Winrate for whites</label>
-                    <input id="inputWhiteWR" type="number" value="{{ whitewr }}" class="form-control" disabled>
+                    <input id="inputWhiteWR" type="number" value="{{ whiteWr }}" class="form-control" disabled>
 
                     <label class="mt-3 mb-2" for="number">Winrate for blacks</label>
-                    <input id="inputBlackWR" type="number" value="{{ blackwr }}" class="form-control" disabled>
+                    <input id="inputBlackWR" type="number" value="{{ blackWr }}" class="form-control" disabled>
                     
                     <label class="mt-3 mb-2" for="password">Password</label>
-                    <input id="inputPassword" name="inputPassword" id="input" type="password" value={{ password }} class="form-control">
+                    <input id="inputPassword" name="inputPassword" id="input" type="password" class="form-control">
 
-                    <label class="mt-5" for="datetime">Date Joined: {{ datejoined|date('d-m-Y') }}</label>
+                    <label class="mt-5" for="datetime">Date Joined: {{ dateJoined|date('d-m-Y') }}</label>
 
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                     
@@ -44,5 +44,13 @@
             </form>
         </div>
     </div>
-    {% endif %}     
+    {% endif %}
+    
+    {% if not app.user %}
+        <h1 class="h3 mb-3 font-weight-normal">You don't have access to this page :(</h1>
+        <button id="profile-register" class="btn btn-secondary text-white mt-2" type="link">
+            <a class="text-decoration-none text-dark" href="{{ path('app_login') }}">Sign In</a>
+        </button>
+    {% endif %}
+
 {% endblock %}

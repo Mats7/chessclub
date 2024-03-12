@@ -18,6 +18,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -86,27 +87,12 @@ class GameController extends AbstractController
                 'Black' => 'black',
             ],
         ])
-        ->add('losercolor', ChoiceType::class,[
-            'label' => 'Losers color',
-            'constraints' =>[
-                new Assert\NotBlank([
-                    'message' => 'This field can not be blank'
-                ])
-            ],
-            'attr' => array(
-                'placeholder' => 'white/black'
-            ),
-            'choices' => [
-                'White' => 'white',
-                'Black' => 'black',
-            ],
-        ])
-        ->add('movecount', TextType::class,[
+        ->add('movecount', IntegerType::class,[
             'label' => 'Winners move count',
             'constraints' =>[
                 new Assert\NotBlank([
                     'message' => 'This field can not be blank'
-                ])
+                ]),
             ],
             'attr' => array(
                 'placeholder' => 'number'
@@ -127,7 +113,24 @@ class GameController extends AbstractController
             $game->setWinner($form->get('winner')->getData()->getNick());
             $game->setLoser($form->get('loser')->getData()->getNick());
             $game->setWinnerColor($form->get('winnercolor')->getData());
-            $game->setLoserColor($form->get('losercolor')->getData());
+
+            if($form->get('winner')->getData()->getNick() == $form->get('loser')->getData()->getNick())
+            {
+                return $this->redirectToRoute('app_game_add_failure');
+            }
+
+            //set the other color accordingly
+            if($form->get('winnercolor')->getData() == 'white')
+            {
+                $game->setWinnerColor('white');
+                $game->setLoserColor('black');
+            }
+            else
+            {
+                $game->setWinnerColor('black');
+                $game->setLoserColor('white');
+            }
+
             $game->setMoveCount($form->get('movecount')->getData());
             $game->setDateTime(date_create($time = "now"));
             
@@ -149,12 +152,12 @@ class GameController extends AbstractController
                 $winner->setBlackGames($winner->getBlackGames() + 1);
                 $loser->setWhiteGames($loser->getWhiteGames() + 1);
             }
-
-            
     
             $entityManager->persist($game);
 
             $entityManager->flush();
+
+            return $this->redirectToRoute('app_game_add_success');
         }
 
         return $this->render('game/addgame.html.twig', [
@@ -168,15 +171,20 @@ class GameController extends AbstractController
     public function showMyGames(EntityManagerInterface $entityManager, Request $request): Response
     {
         $user = $this->getUser();
-        $nick = $user->getNick();
+        $nick = null;
+        $gamearray = null;
 
-        $query = $entityManager->createQuery(
-            'SELECT game
-            FROM App\Entity\Game game
-            WHERE game.Winner = :Nick OR game.Loser = :Nick'
-        )->setParameter('Nick', $nick);
-
-        $gamearray = $query->getResult();
+        if($user)
+        {
+            $nick = $user->getNick();
+            $query = $entityManager->createQuery(
+                'SELECT game
+                FROM App\Entity\Game game
+                WHERE game.winner = :nick OR game.loser = :nick'
+            )->setParameter('nick', $nick);
+    
+            $gamearray = $query->getResult();
+        }
 
         return $this->render('game/mygames.html.twig', [
             'gamearray' => $gamearray,
@@ -193,8 +201,8 @@ class GameController extends AbstractController
         $query = $entityManager->createQuery(
             'SELECT profile
             FROM App\Entity\Profile profile
-            WHERE profile.WhiteGames >= 10 AND profile.BlackGames >= 10
-            ORDER BY profile.Wins DESC'
+            WHERE profile.whiteGames >= 10 AND profile.blackGames >= 10
+            ORDER BY profile.wins DESC'
         );
 
         //select first 10 results
@@ -202,11 +210,65 @@ class GameController extends AbstractController
         $query->setMaxResults(10);
 
         
-        $profilearray = $query->getResult();
+        $profileArray = $query->getResult();
 
         return $this->render('game/leaderboard.html.twig', [
-            'profilearray' => $profilearray,
+            'profilearray' => $profileArray,
         ]);
     } 
+
+    /**
+     * Confirmation of succesful game creation
+     * Redirects to Add Game form
+     */
+    public function addedGame(EntityManagerInterface $entityManager, Request $request): Response
+    {
+        //register success confirmation
+        $form = $this->createFormBuilder()
+        ->add('send', SubmitType::class,[
+            'label' => 'Add another one',
+            'attr'=> array('class'=>'btn btn-primary mt-2'),
+        ])
+        ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted())
+        {
+            return $this->redirectToRoute('app_game_add');
+        }
+            
+        return $this->render('game/game_success.html.twig', [
+            'form' => $form,
+        ]);
+        
+    }
+
+    /**
+     * Confirmation of unsuccesful game creation
+     * Redirects to Add Game form
+     */
+    public function addedGameFailed(EntityManagerInterface $entityManager, Request $request): Response
+    {
+        //register success confirmation
+        $form = $this->createFormBuilder()
+        ->add('send', SubmitType::class,[
+            'label' => 'Add another one',
+            'attr'=> array('class'=>'btn btn-primary mt-2'),
+        ])
+        ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted())
+        {
+            return $this->redirectToRoute('app_game_add');
+        }
+            
+        return $this->render('game/game_failure.html.twig', [
+            'form' => $form,
+        ]);
+        
+    }
 
 }

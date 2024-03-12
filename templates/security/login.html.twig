@@ -12,7 +12,7 @@
 
                 {% if app.user %}
                     <h1 class="h3 mb-3 d-flex justify-content-center font-weight-normal">
-                    You are already logged in as {{ app.user.Nick }} </h1>
+                    You are already logged in as {{ app.user.nick }} </h1>
                     <br>
                     <div class="mb-3 d-flex justify-content-center">
                         <button class="btn btn-lg btn-dark text-white mr-1 " type="submit">
@@ -30,27 +30,14 @@
                 <div class="mb-5">
                     <h1 class="h3 mb-3 font-weight-normal">Sign in</h1>
                     <label class="mt-2" for="username">Nick</label>
-                    <input type="text" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="username" required autofocus>
+                    <input type="text" value="{{ lastUsername }}" name="_username" id="username" class="form-control" autocomplete="username" required autofocus>
                     <label class="mt-2" for="password">Password</label>
                     <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
 
-                    <input type="hidden" name="_csrf_token"
-                        value="{{ csrf_token('authenticate') }}"
-                    >
-
-                    {#
-                        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-                        See https://symfony.com/doc/current/security/remember_me.html
-
-                        <div class="checkbox mb-3">
-                            <label>
-                                <input type="checkbox" name="_remember_me"> Remember me
-                            </label>
-                        </div>
-                    #}
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
                     <button class="btn btn-primary mt-3" id="login_submit" type="submit">
-                    Sign in       
+                        Sign in       
                     </button>
                 </div>
             </form>

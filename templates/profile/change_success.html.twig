@@ -1,0 +1,12 @@
+{% extends 'homepage/home.html.twig' %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-6 bg-dark text-white">
+            <h1>Profile successfully edited!</h1>
+                {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

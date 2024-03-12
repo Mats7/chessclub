@@ -3,10 +3,21 @@
 {% block content %}
         <div class="row justify-content-center">
             <div class="col-6 bg-dark text-white">
+            
+            {% if app.user %}
                 <h1 class="h3 mb-3 font-weight-normal">Add a new game</h1>
                 {{ form_start(form) }}
                     {{ form_widget(form) }}
                 {{ form_end(form) }}
+            {% endif %}
+
+            {% if not app.user %}
+                <h1 class="h3 mb-3 font-weight-normal">You don't have access to this page :(</h1>
+                <button id="profile-register" class="btn btn-secondary text-white mt-2" type="link">
+                    <a class="text-decoration-none text-dark" href="{{ path('app_login') }}">Sign In</a>
+                </button>
+            {% endif %}
+
             </div>
         </div>
 {% endblock %}

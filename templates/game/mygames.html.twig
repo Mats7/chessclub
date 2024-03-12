@@ -9,23 +9,28 @@
                     {% for a in gamearray %}
                         <div class="mt-5 userbox">
                             <label class="mt-2" for="username">Winner:</label>
-                            <h4 class="mt-2" for="username">{{a.Winner}}</h3>
+                            <h4 class="mt-2" for="username">{{a.winner}}</h3>
                             
                             <label class="mt-2" for="username">Loser:</label>
-                            <h4 class="mt-2" for="username">{{a.Loser}}</h3>
+                            <h4 class="mt-2" for="username">{{a.loser}}</h3>
                             
                             <label class="mt-2" for="text">Winner's color:</label>
-                            <h4 class="mt-2" for="text">{{a.WinnerColor}}</h3>
-                            
-                            <label class="mt-2" for="text">Loser's color:</label>
-                            <h4 class="mt-2" for="text">{{a.LoserColor}}</h3>
+                            <h4 class="mt-2" for="text">{{a.winnerColor}}</h3>
                             
                             <label class="mt-2" for="number">Winner's move count:</label>
-                            <h4 class="mt-2" for="number">{{a.MoveCount}}</h3>
+                            <h4 class="mt-2" for="number">{{a.moveCount}}</h3>
                         </div>
                     {% endfor %}
                 </div>
             {% endif %}
+
+            {% if not app.user %}
+                <h1 class="h3 mb-3 font-weight-normal">You don't have access to this page :(</h1>
+                <button id="profile-register" class="btn btn-secondary text-white mt-2" type="link">
+                    <a class="text-decoration-none text-dark" href="{{ path('app_login') }}">Sign In</a>
+                </button>
+            {% endif %}
+            
         </div>
     </div>
         

@@ -26,9 +26,6 @@ class UsersController extends AbstractController
         }
 
         return new Response('User: '.$user->getNick());
-
-        /*return $this->render('homepage/home.html.twig', [
-        ]);*/
     } 
     
     /**

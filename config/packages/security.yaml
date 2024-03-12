@@ -8,7 +8,7 @@ security:
         app_user_provider:
             entity:
                 class: App\Entity\Profile
-                property: Nick
+                property: nick
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/

@@ -55,6 +55,32 @@ class ProfileController extends AbstractController
     }
 
     /**
+     * Confirmation of succesful profile change
+     * Redirects back to Profile view
+     */
+    public function changedProfile(EntityManagerInterface $entityManager, Request $request): Response
+    {
+        //register success confirmation
+        $form = $this->createFormBuilder()
+        ->add('send', SubmitType::class,[
+            'label' => 'Back to profile',
+            'attr'=> array('class'=>'btn btn-primary mt-2'),
+        ])
+        ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()){
+            return $this->redirectToRoute('app_profile_view');
+        }
+            
+        return $this->render('profile/change_success.html.twig', [
+            'form' => $form,
+        ]);
+        
+    }
+
+    /**
      * Renders a register form for new users
      * Persists user data into the database
      */
@@ -142,15 +168,29 @@ class ProfileController extends AbstractController
     public function viewProfile(EntityManagerInterface $entityManager, Request $request): Response
     {   
             $user = $this->getUser();
-            $nick = $user->getNick();
-            $email = $user->getEmail();
-            $phone = $user->getPhone();
-            $wins = $user->getWins();
-            $defeats = $user->getDefeats();
-            $whitewr = $user->getWhiteWinrate();
-            $blackwr = $user->getBlackWinrate();
-            $datejoined = $user->getDateJoined();
-            $password = $user->getPassword();
+
+            if($user)
+            {
+                $nick = $user->getNick();
+                $email = $user->getEmail();
+                $phone = $user->getPhone();
+                $wins = $user->getWins();
+                $defeats = $user->getDefeats();
+                $whiteWr = $user->getWhiteWinrate();
+                $blackWr = $user->getBlackWinrate();
+                $dateJoined = $user->getDateJoined();
+            }
+            else
+            {
+                $nick = null;
+                $email = null;
+                $phone = null;
+                $wins = null;
+                $defeats = null;
+                $whiteWr = null;
+                $blackWr = null;
+                $dateJoined = null;
+            }
             
             return $this->render('profile/view.html.twig', [
                 'nick' => $nick,
@@ -158,10 +198,9 @@ class ProfileController extends AbstractController
                 'phone' => $phone,
                 'wins' => $wins,
                 'defeats' => $defeats,
-                'whitewr' => $whitewr,
-                'blackwr' => $blackwr,
-                'datejoined' => $datejoined,
-                'password' => $password,
+                'whiteWr' => $whiteWr,
+                'blackWr' => $blackWr,
+                'dateJoined' => $dateJoined,
             ]);
     }
 
@@ -177,9 +216,9 @@ class ProfileController extends AbstractController
             $phone = $request->request->get('inputPhone');
             $wins = $profile->getWins();
             $defeats = $profile->getDefeats();
-            $whitewr = $profile->getWhiteWinrate();
-            $blackwr = $profile->getBlackWinrate();
-            $datejoined = $profile->getDateJoined();
+            $whiteWr = $profile->getWhiteWinrate();
+            $blackWr = $profile->getBlackWinrate();
+            $dateJoined = $profile->getDateJoined();
             $password = $request->request->get('inputPassword');
 
             $profile->setNick($nick);
@@ -187,9 +226,9 @@ class ProfileController extends AbstractController
             $profile->setEmail($email);
             $profile->setWins($wins);
             $profile->setDefeats($defeats);
-            $profile->setWhiteWinrate($whitewr);
-            $profile->setBlackWinrate($blackwr);
-            $profile->setDateJoined($datejoined);
+            $profile->setWhiteWinrate($whiteWr);
+            $profile->setBlackWinrate($blackWr);
+            $profile->setDateJoined($dateJoined);
 
             $plaintextPassword = $password;
 
@@ -198,11 +237,16 @@ class ProfileController extends AbstractController
                 $plaintextPassword
             );
 
-            $profile->setPassword($hashedPassword);
-    
+            if(!empty($password))
+            {
+                $profile->setPassword($hashedPassword);
+            }
+            
             $entityManager->persist($profile);
 
             $entityManager->flush();
+
+            return $this->redirectToRoute('app_profile_change_success');
             
             return $this->render('profile/view.html.twig', [
                 'nick' => $nick,
@@ -210,10 +254,9 @@ class ProfileController extends AbstractController
                 'phone' => $phone,
                 'wins' => $wins,
                 'defeats' => $defeats,
-                'whitewr' => $whitewr,
-                'blackwr' => $blackwr,
-                'datejoined' => $datejoined,
-                'password' => $password,
+                'whiteWr' => $whiteWr,
+                'blackWr' => $blackWr,
+                'dateJoined' => $dateJoined,
             ]);
     }
 }
