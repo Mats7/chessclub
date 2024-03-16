@@ -1,15 +1,31 @@
-- Po logine sa zobrazia dalsie sekcie (Profile Info / My Games / Add Game / Logout)
+# Chess Club IS mini project
 
-- Je vytvoreny testovaci ucet "test" s heslom "00000000"
-
-- Databaza je v chessclubdb.sql (aj s testovacimi udajmi pre profily a hry)
+## Information system for chess club users
+### Features:
+- Authentication system (registration / login)
+- Profile editing
+- User list
+- Game creation
+- Game list
+- Leaderboard of top 10 players
 
 ---
-- src/ == controller/ repository /entity + vytvorenie testovacich dat v datafixtures
-- templates/ == html
-- assets/styles == css
+### Structure
+- src/ == controller + repository + entity
+- templates/ == html files
+- assets/styles == css style
 
 ---
-- Pouzite:
+### Required:
+  - PHP 8.3.3 / Composer / Symfony 7.0 / MySQL 5.7.44
 
-  - PHP 8.3.3 / Symfony 7.0 + Composer / MySQL 5.7.44
+---
+### How to run:
+- install dependencies: ```composer install```
+- create a new database: ```CREATE DATABASE chessclubdb```
+- import project database: ```mysql -u admin -p chessclubdb < chessclubdb.sql```
+- run mysql ```mysql -u admin -p``` with password ```77777777```
+- run the server: ```symfony server:start```
+- Project should be available at ```localhost:8000``` in the browser
+
+There is a one test account already created: username:test password:00000000
